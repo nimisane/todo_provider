@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-
 import 'package:todo_provider/providers/todo_filter.dart';
 import 'package:todo_provider/providers/todo_list.dart';
 import 'package:todo_provider/providers/todo_search.dart';
@@ -33,22 +31,17 @@ class FilteredTodoState extends Equatable {
   List<Object> get props => [filteredTodos];
 }
 
-class FilteredTodos with ChangeNotifier {
-  late FilteredTodoState _state; //= FilteredTodoState.initial();
-
-  FilteredTodoState get state => _state;
-
-  final List<Todo> todoList;
+class FilteredTodos {
+  final TodoFilter todoFilter;
+  final TodoSearch todoSearch;
+  final TodoList todoList;
   FilteredTodos({
+    required this.todoFilter,
+    required this.todoSearch,
     required this.todoList,
-  }) {
-    _state = FilteredTodoState(filteredTodos: todoList);
-  }
+  });
 
-  void updateTodos(
-      {required TodoFilter todoFilter,
-      required TodoSearch todoSearch,
-      required TodoList todoList}) {
+  FilteredTodoState get state {
     // ignore: no_leading_underscores_for_local_identifiers
     List<Todo> _filteredTodo = [];
 
@@ -76,7 +69,6 @@ class FilteredTodos with ChangeNotifier {
           .toList();
     }
 
-    _state = _state.copyWith(filteredTodos: _filteredTodo);
-    notifyListeners();
+    return FilteredTodoState(filteredTodos: _filteredTodo);
   }
 }
