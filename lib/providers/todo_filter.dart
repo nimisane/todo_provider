@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
 import 'package:todo_provider/models/todo_model.dart';
 
@@ -28,14 +29,16 @@ class TodoFilterState extends Equatable {
   bool get stringify => true;
 }
 
-class TodoFilter with ChangeNotifier {
-  TodoFilterState _state = TodoFilterState.initial();
+class TodoFilter extends StateNotifier<TodoFilterState> {
+ 
 
-  TodoFilterState get state => _state;
+  TodoFilter():super(TodoFilterState.initial());
+
+  
 
   void changeFilter(Filter newFilter) {
-    _state = _state.copyWith(filter: newFilter);
+    state = state.copyWith(filter: newFilter);
 
-    notifyListeners();
+
   }
 }

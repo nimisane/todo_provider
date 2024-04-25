@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
+
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
 class TodoSearchState {
   final String searchTerm;
@@ -23,14 +24,15 @@ class TodoSearchState {
   }
 }
 
-class TodoSearch with ChangeNotifier {
-  TodoSearchState _state = TodoSearchState.initial();
+class TodoSearch extends StateNotifier<TodoSearchState> {
 
-  TodoSearchState get state => _state;
+
+  TodoSearch():super(TodoSearchState.initial());
+
+ 
 
   void setSearchTerm(String searchTerm) {
-    _state = _state.copyWith(searchTerm: searchTerm);
+    state = state.copyWith(searchTerm: searchTerm);
 
-    notifyListeners();
   }
 }
